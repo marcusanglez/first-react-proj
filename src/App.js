@@ -36,6 +36,7 @@ function Board({xIsNext, squares, onPlay}) {
         <>
             <div className='status'>{status}</div>
             <div className='board-row'>
+
                 <Square value={squares[0]} onSquareClick={()=> handleClick(0)} />
                 <Square value={squares[1]} onSquareClick={()=> handleClick(1)} />
                 <Square value={squares[2]} onSquareClick={()=> handleClick(2)} />
@@ -56,11 +57,11 @@ function Board({xIsNext, squares, onPlay}) {
 
 
 export default function Game(){
-    const xIsNext = currentMove % 2 === 0;
     // the history is initialized with an array containing another array of length 9 elements
     // with inner values that are nulls
     const [history, setHistory] = useState([Array(9).fill(null)]);
     const [currentMove, setCurrentMove] = useState(0);
+    const xIsNext = currentMove % 2 === 0;
     const currentSquares = history[currentMove];
     //console.log(`currentSquares`, currentSquares)
 
@@ -83,14 +84,13 @@ export default function Game(){
     }
 
     const moves = history.map((squares, move) => {
-        const description = move > 0 ? 'Go to move #'+move
-            : 'Go   to game start';
+        const description = 'You are at ' +
+            (move > 0 ? ' move #' + move
+                : ' game start');
         return (
-          <li key={move}>
-              <button onClick={() => jumpTo(move)}>
-                  {description}
-              </button>
-          </li>
+            <li key={move}>
+                <button onClick={() => jumpTo(move)}>{description}</button>
+             </li>
         );
     });
 
